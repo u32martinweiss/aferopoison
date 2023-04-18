@@ -12,5 +12,6 @@ export const PASSWORD_SALT_ROUNDS = 10;
 // Status Codes
 export const CREATED_CODE = 201;
 export const BAD_REQUEST_CODE = 400;
+export const UNAUTHORIZED_CODE = 401;
 export const CONFLICT_CODE = 409;
 export const SERVER_ERROR_CODE = 500;
