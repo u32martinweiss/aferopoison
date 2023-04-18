@@ -8,6 +8,8 @@ export const AUTH_ROUTE_BASE = '/auth';
 
 // Auth
 export const PASSWORD_SALT_ROUNDS = 10;
+export const AUTH_TOKEN_TYPE = 'Bearer';
+export const AUTH_TOKEN_EXPIRATION_IN_HOURS = 18;
 
 // Status Codes
 export const CREATED_CODE = 201;

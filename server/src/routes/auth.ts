@@ -5,6 +5,7 @@ import { pool } from '../main';
 
 import { GET_USER_BY_USERNAME_QUERY, CREATE_USER_QUERY } from '../queries/auth';
 
+import { generateAccessTokenData } from '../utils/jwt';
 import { getServerError } from '../utils/error';
 import {
   PASSWORD_SALT_ROUNDS,
@@ -52,9 +53,7 @@ authRouter.post('/register', async (req, res) => {
     return res.status(CREATED_CODE).json({
       success: true,
       message: 'User has been successfully created!',
-      data: {
-        id: newUser.rows[0].user_id,
-      },
+      data: generateAccessTokenData(newUser.rows[0].user_id),
     });
   } catch (error) {
     console.log(error);
@@ -100,9 +99,7 @@ authRouter.post('/login', async (req, res) => {
     return res.json({
       success: true,
       message: 'Successfully logged in!',
-      data: {
-        id: existingUser.rows[0].user_id,
-      },
+      data: generateAccessTokenData(existingUser.rows[0].user_id),
     });
   } catch (error) {
     console.log(error);
