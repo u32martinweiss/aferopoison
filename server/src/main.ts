@@ -3,10 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
+import authRouter from './routes/auth';
+
 import {
   DEFAULT_EXPRESS_PORT,
   DEFAULT_POSTGRES_PORT,
   DEFAULT_POSTGRES_HOST,
+  AUTH_ROUTE_BASE,
 } from './utils/constants';
 
 // Setup
@@ -38,6 +41,9 @@ pool
     console.log(err);
     console.log(`[ERROR] PostgreSQL is not running!`);
   });
+
+// Routes
+app.use(AUTH_ROUTE_BASE, authRouter);
 
 // Express Server
 app.listen(expressPort, () => {
