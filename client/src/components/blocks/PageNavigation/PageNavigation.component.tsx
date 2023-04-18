@@ -10,6 +10,9 @@ const PageNavigation = (): JSX.Element => (
       <li>
         <Link to="/login">Sign in</Link>
       </li>
+      <li>
+        <Link to="/register">Sign up</Link>
+      </li>
     </ul>
   </nav>
 );

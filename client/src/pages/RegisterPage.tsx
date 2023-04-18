@@ -1,9 +1,89 @@
+import { useFormik } from 'formik';
+
 import DefaultLayout from '../layouts/DefaultLayout';
 
-const RegisterPage = (): JSX.Element => (
-  <DefaultLayout>
-    <h1>Register</h1>
-  </DefaultLayout>
-);
+import { registerSchema } from '../schemas/auth';
+
+const RegisterPage = (): JSX.Element => {
+  const onSubmit = async () => {
+    console.log('Submit!');
+  };
+
+  const {
+    values,
+    touched,
+    errors,
+    isSubmitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      username: '',
+      displayName: '',
+      password: '',
+    },
+    validationSchema: registerSchema,
+    onSubmit,
+  });
+
+  return (
+    <DefaultLayout>
+      <h1>Register</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <br />
+        <input
+          type="text"
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.username && errors.username ? (
+          <>
+            <br />
+            <span>{errors.username}</span>
+          </>
+        ) : null}
+        <br />
+        <label htmlFor="username">Display name:</label>
+        <br />
+        <input
+          type="text"
+          name="displayName"
+          value={values.displayName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.displayName && errors.displayName ? (
+          <>
+            <br />
+            <span>{errors.displayName}</span>
+          </>
+        ) : null}
+        <br />
+        <label htmlFor="password">Password:</label>
+        <br />
+        <input
+          type="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {touched.password && errors.password ? (
+          <>
+            <br />
+            <span>{errors.password}</span>
+          </>
+        ) : null}
+        <br />
+        <br />
+        <input type="submit" value="Sign up" disabled={isSubmitting} />
+      </form>
+    </DefaultLayout>
+  );
+};
 
 export default RegisterPage;
