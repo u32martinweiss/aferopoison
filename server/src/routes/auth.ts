@@ -6,6 +6,7 @@ import { pool } from '../main';
 import { GET_USER_BY_USERNAME_QUERY, CREATE_USER_QUERY } from '../queries/auth';
 
 import { generateAccessTokenData } from '../utils/jwt';
+import { authorize } from '../middlewares/auth';
 import { getServerError } from '../utils/error';
 import {
   PASSWORD_SALT_ROUNDS,
@@ -103,6 +104,19 @@ authRouter.post('/login', async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(SERVER_ERROR_CODE).json(getServerError());
+  }
+});
+
+authRouter.post('/verify', authorize, (_, res) => {
+  try {
+    res.json({
+      success: true,
+      message: 'The token is valid!',
+      data: null,
+    });
+  } catch (error) {
+    console.error(error);
     return res.status(SERVER_ERROR_CODE).json(getServerError());
   }
 });
