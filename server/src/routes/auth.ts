@@ -54,7 +54,13 @@ authRouter.post('/register', async (req, res) => {
     return res.status(CREATED_CODE).json({
       success: true,
       message: 'User has been successfully created!',
-      data: generateAccessTokenData(newUser.rows[0].user_id),
+      data: {
+        userInfo: {
+          username: newUser.rows[0].username,
+          displayName: newUser.rows[0].displayName,
+        },
+        tokenData: generateAccessTokenData(newUser.rows[0].user_id),
+      },
     });
   } catch (error) {
     console.log(error);
@@ -100,7 +106,13 @@ authRouter.post('/login', async (req, res) => {
     return res.json({
       success: true,
       message: 'Successfully logged in!',
-      data: generateAccessTokenData(existingUser.rows[0].user_id),
+      data: {
+        userInfo: {
+          username: existingUser.rows[0].username,
+          displayName: existingUser.rows[0].displayName,
+        },
+        tokenData: generateAccessTokenData(existingUser.rows[0].user_id),
+      },
     });
   } catch (error) {
     console.log(error);
