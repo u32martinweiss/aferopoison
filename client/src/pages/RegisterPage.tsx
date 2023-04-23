@@ -2,11 +2,22 @@ import { useFormik } from 'formik';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 
+import { useAuth } from '../hooks/auth';
+
 import { registerSchema } from '../schemas/auth';
 
 const RegisterPage = (): JSX.Element => {
+  const { handleRegister } = useAuth();
+
   const onSubmit = async () => {
-    console.log('Submit!');
+    const authData = await handleRegister({
+      username: values.username,
+      displayName: values.displayName,
+      password: values.password,
+    });
+    if (authData && !authData.success) {
+      if (authData.message) alert(authData.message);
+    }
   };
 
   const {
